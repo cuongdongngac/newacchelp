@@ -33,6 +33,9 @@ Khác với các hệ thống phân quyền truyền thống lưu nhiều cột 
 | **Approve (Duyệt)** | `0010 0000` | **32** | Quyền ghi sổ / duyệt chứng từ kế toán |
 | **Admin (Toàn quyền)**| `1111 1111` | **255** | Toàn quyền kiểm soát hệ thống |
 
+![Ma trận mặt nạ phân quyền](/images/general-guide-authorization-role-mask-matrix.png)
+<p class="img-caption">Hình 1.6: Mô hình ma trận phân quyền theo cơ chế mặt nạ Bitwise</p>
+
 ::: tip Công thức tính quyền tổng hợp
 Quyền tổng hợp của một người dùng là **phép cộng (hoặc phép OR bitwise)** của các quyền được cấp:
 * *Ví dụ 1:* Nhân viên xem (1) + in (16) $\rightarrow$ `RoleMask = 1 + 16 = 17`.
@@ -59,6 +62,10 @@ Nếu phép tính trả về khác 0, chức năng tương ứng mới được 
 
 1. Đăng nhập vào hệ thống bằng tài khoản Quản trị (`admin`).
 2. Trên thanh Ribbon, chọn tab **Hệ Thống** $\rightarrow$ nhóm **Bảo mật** $\rightarrow$ bấm nút **"Quản lý Người dùng & Phân quyền"**.
+
+![Quản lý Người dùng và Phân quyền](/images/general-guide-authorization-user-list.png)
+<p class="img-caption">Hình 1.7: Giao diện quản lý danh sách người dùng và bảng phân quyền chi tiết</p>
+
 3. Danh sách người dùng sẽ hiển thị:
    * **Thêm người dùng mới:** Nhấn nút **"Thêm mới"**, nhập Tên đăng nhập, Họ tên và Mật khẩu khởi tạo.
    * **Phân quyền:** Chọn người dùng cần thiết lập ở danh sách bên trái, bảng cây chức năng bên phải sẽ hiển thị các cờ quyền.

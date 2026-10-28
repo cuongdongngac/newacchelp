@@ -30,6 +30,9 @@ Phần mềm NewaccNet được xây dựng trên nền tảng .NET 10 hiện đ
 1. Tải bộ cài `.NET 10.0 Desktop Runtime (x64)` từ trang chủ Microsoft.
 2. Chạy file cài đặt và làm theo hướng dẫn trên màn hình cho đến khi hoàn tất.
 
+![Cài đặt Microsoft .NET 10 Desktop Runtime](/images/general-guide-installation-step1-dotnet.png)
+<p class="img-caption">Hình 1.1: Giao diện tiến trình cài đặt Microsoft .NET Desktop Runtime</p>
+
 ### Bước 2: Cài đặt Microsoft Access Database Engine (Nếu dùng CSDL Access)
 Nếu doanh nghiệp của bạn sử dụng CSDL dạng tệp `.accdb`:
 * Cần cài đặt **Microsoft Access Database Engine 2016 Redistributable (x64)** (ACE.OLEDB.16.0).
@@ -39,6 +42,9 @@ Nếu doanh nghiệp của bạn sử dụng CSDL dạng tệp `.accdb`:
 2. Mặc định phần mềm sẽ được cài vào đường dẫn:
    `C:\Program Files\NewaccNet ERP\` (hoặc thư mục di động bạn chỉ định).
 3. Biểu tượng phần mềm **NewaccNet ERP** sẽ tự động xuất hiện trên màn hình Desktop.
+
+![Biểu tượng NewaccNet trên Desktop](/images/general-guide-installation-desktop-shortcut.png)
+<p class="img-caption">Hình 1.2: Biểu tượng lối tắt NewaccNet ERP trên màn hình Desktop</p>
 
 ::: tip Lưu ý về quyền ghi thư mục cấu hình
 Toàn bộ file cấu hình người dùng (`appsettings.json`, `UserSettings.json`, `plugins.json`) được NewaccNet lưu trữ tự động trong `%APPDATA%\NewaccNet\`. Điều này đảm bảo phần mềm hoạt động trơn tru không bao giờ gặp lỗi quyền ghi `Access Denied` của Windows UAC.

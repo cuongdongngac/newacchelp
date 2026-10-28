@@ -22,6 +22,9 @@ Hệ thống tài khoản là xương sống của toàn bộ quy trình hạch 
   * `4` - Không có số dư (Tài khoản loại 5, 6, 7, 8, 9 kết chuyển cuối kỳ)
 * **Theo dõi ngoài bảng (`Outtableflag`):** Dành cho các tài khoản ngoài bảng (Loại 0).
 
+![Cây danh mục tài khoản dạng TreeList](/images/master-data-chart-of-accounts-treelist.png)
+<p class="img-caption">Hình 2.1: Cấu trúc cây phân cấp Hệ thống Tài khoản kế toán</p>
+
 ---
 
 ## 2. Thao Tác Thêm Mới Tài Khoản Chi Tiết
@@ -34,6 +37,10 @@ Khi doanh nghiệp có nhu cầu mở thêm tài khoản con (ví dụ: mở th�
    * **Tên tài khoản:** `Ngân hàng BIDV - Chi nhánh Cầu Giấy`
    * **Tài khoản mẹ:** Chọn `1121`
    * **Tính chất:** Chọn *1 - Dư Nợ*
+
+![Thêm mới tài khoản con](/images/master-data-chart-of-accounts-add-modal.png)
+<p class="img-caption">Hình 2.2: Cửa sổ thêm mới tài khoản kế toán chi tiết</p>
+
 4. Nhấn **"Lưu"** (`Ctrl + S`).
 
 ::: tip Tính năng tự động tổng hợp số dư lên tài khoản mẹ

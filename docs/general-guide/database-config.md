@@ -24,7 +24,10 @@ NewaccNet ERP hỗ trợ độc quyền khả năng làm việc linh hoạt trê
 
 Khi khởi động lần đầu hoặc khi cần đổi CSDL:
 1. Trên thanh Ribbon, vào menu **Hệ Thống** $\rightarrow$ bấm nút **"Cấu hình CSDL"**.
-2. Chọn loại CSDL mong muốn:
+2. Cửa sổ thiết lập kết nối xuất hiện cho phép lựa chọn hệ quản trị tương ứng:
+
+![Cửa sổ Cấu hình CSDL](/images/general-guide-database-config-window.png)
+<p class="img-caption">Hình 1.3: Giao diện trung tâm Cấu hình Cơ sở dữ liệu NewaccNet ERP</p>
 
 ### Lựa chọn 1: Dùng Microsoft Access
 * Nhấn nút **"Chọn tệp"** và trỏ đến tệp dữ liệu kế toán (ví dụ: `D:\NewaccNet\Data\Newacc2026.accdb`).
@@ -41,6 +44,9 @@ Khi khởi động lần đầu hoặc khi cần đổi CSDL:
 ### Lựa chọn 3: Dùng PostgreSQL
 * Nhập **Host** (mặc định: `localhost`), **Port** (mặc định: `5432`), **Database**, **User** và **Password**.
 * Nhấn **"Kiểm tra kết nối"** $\rightarrow$ Bấm **"Lưu"**.
+
+![Kiểm tra kết nối thành công](/images/general-guide-database-config-connection-test.png)
+<p class="img-caption">Hình 1.4: Thông báo xác nhận kiểm tra kết nối CSDL thành công</p>
 
 ::: tip Tính năng tự động hóa của Core
 Sau khi bạn lưu cấu hình, lớp [`AppDataAccessAdapter.Create()`](/plugins/developer-guide) trong lõi `NewaccNet.Core` sẽ tự động phân giải driver phù hợp và áp dụng ngay lập tức cho toàn bộ giao diện và các Plugin đang chạy.

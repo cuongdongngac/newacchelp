@@ -18,6 +18,9 @@ Quản lý danh sách nguyên vật liệu, hàng hóa, thành phẩm, công c�
 * **Nhóm vật tư (`CategoryId`):** Phân nhóm để phục vụ thống kê tổng hợp và lập báo cáo.
 * **Tài khoản kho:** Mặc định tài khoản hạch toán khi nhập kho (`152` - Nguyên liệu, `156` - Hàng hóa, `155` - Thành phẩm, `153` - Công cụ dụng cụ).
 
+![Danh mục vật tư hàng hóa](/images/master-data-inventory-items-grid-view.png)
+<p class="img-caption">Hình 2.5: Bảng danh mục vật tư hàng hóa với tính năng lọc và tìm kiếm nhanh</p>
+
 ---
 
 ## 2. In Danh Mục Vật Tư Bằng DevExpress XtraReport
@@ -28,4 +31,8 @@ NewaccNet hỗ trợ in ấn danh mục vật tư chuẩn DevExpress XtraReport:
    * Header thông tin công ty, mã số thuế.
    * Danh sách bảng biểu có số thứ tự tự động.
    * Chân trang tổng số lượng mặt hàng và 3 chữ ký (Người lập, Kế toán trưởng, Giám đốc).
+
+![Xem trước in danh mục vật tư XtraReport](/images/master-data-inventory-items-xtrareport-preview.png)
+<p class="img-caption">Hình 2.6: Xem trước mẫu in A4 danh mục vật tư chuyên nghiệp trên DevExpress XtraReport</p>
+
 3. Hỗ trợ xuất trực tiếp ra **PDF, Excel (.xlsx), Word (.docx)** hoặc gửi thẳng ra máy in.

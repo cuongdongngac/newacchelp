@@ -27,18 +27,22 @@ NewaccNet ERP áp dụng cơ chế cấp phép bản quyền linh hoạt dựa t
 ## 2. Quy Trình Kích Hoạt Bản Quyền
 
 Khi số lượng chứng từ gần đạt hoặc vượt quá hạn mức hiện tại:
-1. Trên thanh Ribbon, bấm tab **Hệ Thống** $\rightarrow$ chọn nút **"Đăng ký Bản quyền"**.
-2. Cửa sổ bản quyền xuất hiện với **Mã máy tính (Machine Code)** của bạn (ví dụ: `BFEBFBFF000906EA`).
+1. Trên thanh Ribbon, bấm tab **Hệ Thống** $\rightarrow$ chọn nút **"Đăng ký Bản quyền"** (hoặc thông tin đơn vị).
+2. Cửa sổ bản quyền xuất hiện với **Mã máy tính (Machine Code)** của bạn (ví dụ: `NAC-xxxx-xxxx-xxxx`).
+
+![Cửa sổ Đăng ký Bản quyền](/images/general-guide-licensing-window.png)
+<p class="img-caption">Hình 1.5: Giao diện Cửa sổ Đăng ký Thông tin Đơn vị & Kích hoạt Bản quyền</p>
+
 3. Nhấn nút **"Sao chép mã máy"** và gửi cho nhà cung cấp phần mềm NewaccNet.
-4. Sau khi đăng ký gói bản quyền, bạn sẽ nhận được **Mã đăng ký 16 ký tự** (ví dụ: `09AF-37D0-5D2F-4DA9`).
-5. Dán mã này vào ô **"Mã đăng ký"** và nhấn **"Kích hoạt ngay"**.
+4. Sau khi đăng ký gói bản quyền, bạn sẽ nhận được **Mã đăng ký 16 ký tự** (ví dụ: `C0AB-17C1-77BB-D261`).
+5. Dán mã này vào ô **"Số đăng ký"** và nhấn **"Đăng ký"**.
 
 ::: tip Tính năng tự động luận số bản ghi
-Hệ thống sẽ tự động bóc tách chữ ký số và giải mã hạn mức bản ghi tương ứng từ mã đăng ký của bạn. Thông tin hạn mức mới sẽ được cập nhật ngay lập tức trên thanh tiêu đề của phần mềm.
+Hệ thống sẽ tự động bóc tách chữ ký số và giải mã hạn mức bản ghi tương ứng từ mã đăng ký của bạn. Thông tin hạn mức mới sẽ được lưu an toàn vào cơ sở dữ liệu và hiển thị ngay trên thanh trạng thái của phần mềm.
 :::
 
 ::: warning Điều gì xảy ra khi đạt hạn mức?
 Khi đạt hạn mức số bản ghi của gói:
 * Bạn **vẫn có thể** mở phần mềm, tra cứu sổ sách, xem báo cáo, in ấn và kết xuất dữ liệu bình thường.
-* Thao tác **thêm mới chứng từ** sẽ tạm khóa và hiển thị thông báo mời bạn nâng cấp lên gói cao hơn để tiếp tục hạch toán.
+* Thao tác **thêm mới chứng từ** sẽ tạm dừng và hiển thị thông báo mời bạn gia tăng số lượng chứng từ để tiếp tục hạch toán.
 :::
