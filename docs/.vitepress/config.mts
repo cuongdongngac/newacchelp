@@ -7,6 +7,10 @@ export default defineConfig({
   lastUpdated: true,
   cleanUrls: true,
 
+  markdown: {
+    math: true
+  },
+
   themeConfig: {
     siteTitle: 'NEWACC Help Center',
 
