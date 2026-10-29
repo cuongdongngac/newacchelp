@@ -8,6 +8,9 @@ outline: deep
 
 Màn hình Chứng từ (`VoucherEntryWindow`) là nơi kế toán viên thực hiện phần lớn các giao dịch hàng ngày. Hệ thống hỗ trợ nhập đồng thời nhiều loại chứng từ kế toán trong một giao diện thống nhất.
 
+![Giao diện nhập chứng từ đa năng](/images/accounting-operations-voucher-entry-overview.png)
+<p class="img-caption">Hình 3.1: Giao diện tổng quan màn hình nhập chứng từ đa năng (JournalVoucher)</p>
+
 ---
 
 ## 1. Cấu Trúc Giao Diện Chứng Từ
@@ -23,11 +26,18 @@ Giao diện được chia thành 3 phần khoa học:
    * **Số tiền (`Amount`)**: Số tiền phát sinh (tự động đọc thành chữ ở góc dưới).
    * **Đối tượng Nợ / Đối tượng Có**: Phục vụ theo dõi công nợ chi tiết 2 chiều.
    * **Mã công trình / Khoản mục chi phí**: Phục vụ tập hợp chi phí giá thành.
+
+![Lưới định khoản chi tiết](/images/accounting-operations-voucher-entry-detail-grid.png)
+<p class="img-caption">Hình 3.2: Lưới định khoản chi tiết nợ có và theo dõi công nợ hai chiều</p>
+
 3. **Thanh công cụ tác nghiệp:**
    * Nút **Thêm mới** (`F4`)
    * Nút **Lưu chứng từ** (`Ctrl + S`)
    * Nút **In chứng từ** (In Phiếu thu, Phiếu chi, Ủy nhiệm chi chuẩn mực)
    * Nút **Xóa chứng từ** (`Ctrl + Delete`)
+
+![Xem trước khi in chứng từ](/images/accounting-operations-voucher-entry-print-preview.png)
+<p class="img-caption">Hình 3.3: Xem trước và in mẫu chứng từ chuẩn mực DevExpress XtraReports</p>
 
 ---
 
