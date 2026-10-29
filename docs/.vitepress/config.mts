@@ -16,12 +16,13 @@ export default defineConfig({
 
     nav: [
       { text: 'Trang chủ', link: '/' },
+      { text: 'Triết lý phần mềm', link: '/general-guide/philosophy' },
       { text: 'Hướng dẫn chung', link: '/general-guide/installation' },
       { text: 'Danh mục', link: '/master-data/chart-of-accounts' },
       { text: 'Nghiệp vụ chứng từ', link: '/accounting-operations/voucher-entry' },
       { text: 'Chi phí & Cuối kỳ', link: '/cost-and-closing/cost-allocation' },
       { text: 'Báo cáo', link: '/reports/financial-statements' },
-      { text: 'Plugin mở rộng', link: '/plugins/plugin-management' }
+      { text: 'Tiện ích mở rộng', link: '/plugins/plugin-management' }
     ],
 
     sidebar: [
@@ -29,10 +30,11 @@ export default defineConfig({
         text: '1. Hướng Dẫn Chung',
         collapsed: false,
         items: [
+          { text: 'Triết lý phần mềm: Từ Kế toán đến ERP', link: '/general-guide/philosophy' },
           { text: 'Cài đặt & Yêu cầu hệ thống', link: '/general-guide/installation' },
           { text: 'Cấu hình Cơ sở dữ liệu', link: '/general-guide/database-config' },
           { text: 'Đăng ký & Bản quyền theo bản ghi', link: '/general-guide/licensing' },
-          { text: 'Quản lý phân quyền (Bitwise Mask)', link: '/general-guide/authorization' }
+          { text: 'Quản lý phân quyền người dùng', link: '/general-guide/authorization' }
         ]
       },
       {
@@ -72,11 +74,11 @@ export default defineConfig({
         ]
       },
       {
-        text: '6. Hệ Sinh Thái Plugin Mở Rộng',
+        text: '6. Tiện Ích Mở Rộng (Plugin)',
         collapsed: false,
         items: [
-          { text: 'Quản lý Plugin (Cài đặt & Gỡ bỏ 1-DLL)', link: '/plugins/plugin-management' },
-          { text: 'Cẩm nang Lập trình viên phát triển Plugin', link: '/plugins/developer-guide' }
+          { text: 'Khái niệm & Quản lý Plugin', link: '/plugins/plugin-management' },
+          { text: 'Từ Kế toán vươn lên ERP', link: '/plugins/developer-guide' }
         ]
       }
     ],

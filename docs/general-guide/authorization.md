@@ -17,41 +17,28 @@ Phân hệ Quản lý phân quyền trong **NewaccNet ERP** cho phép Quản tr�
 
 ---
 
-## 2. Cơ Chế Mặt Nạ Bitwise AND Mask (Dành Cho Kỹ Thuật & Quản Trị)
+## 2. Mô Hình Phân Quyền Chi Tiết Theo Nghiệp Vụ
 
-Khác với các hệ thống phân quyền truyền thống lưu nhiều cột boolean (`CanView`, `CanAdd`, `CanEdit`...) gây cồng kềnh CSDL, NewaccNet sử dụng **cơ chế mặt nạ nhị phân (Bitwise AND mask)** nén toàn bộ quyền hạn vào một số nguyên duy nhất (`RoleMask` kiểu `int`):
+Hệ thống cho phép Quản trị viên phân tách rạch ròi các quyền hạn tác nghiệp trên từng phân hệ và màn hình chức năng:
 
-### Bảng trọng số các cờ quyền (Binary Flags)
+### Bảng các nhóm quyền thao tác
 
-| Quyền thao tác | Giá trị Nhị phân (Binary) | Giá trị Thập phân (Decimal) | Ý nghĩa nghiệp vụ |
-| :--- | :---: | :---: | :--- |
-| **View (Xem)** | `0000 0001` | **1** | Quyền mở form và xem dữ liệu |
-| **Add (Thêm mới)** | `0000 0010` | **2** | Quyền tạo chứng từ / danh mục mới |
-| **Edit (Sửa)** | `0000 0100` | **4** | Quyền chỉnh sửa bản ghi đã lưu |
-| **Delete (Xóa)** | `0000 1000` | **8** | Quyền xóa chứng từ / danh mục |
-| **Print (In ấn)** | `0001 0000` | **16** | Quyền in chứng từ và xuất báo cáo |
-| **Approve (Duyệt)** | `0010 0000` | **32** | Quyền ghi sổ / duyệt chứng từ kế toán |
-| **Admin (Toàn quyền)**| `1111 1111` | **255** | Toàn quyền kiểm soát hệ thống |
+| Quyền thao tác | Ký hiệu | Ý nghĩa nghiệp vụ |
+| :--- | :---: | :--- |
+| **Xem (View)** | `Xem` | Cho phép mở màn hình và tra cứu số liệu, không thể thay đổi nội dung |
+| **Thêm mới (Add)** | `Thêm` | Cho phép tạo mới chứng từ, hóa đơn hoặc danh mục khách hàng, vật tư |
+| **Chỉnh sửa (Edit)** | `Sửa` | Cho phép chỉnh sửa thông tin chứng từ chưa ghi sổ |
+| **Xóa (Delete)** | `Xóa` | Cho phép xóa chứng từ hoặc bản ghi danh mục |
+| **In ấn (Print)** | `In` | Cho phép in phiếu thu, phiếu chi, hóa đơn và xuất báo cáo ra Excel/PDF |
+| **Ghi sổ / Duyệt (Approve)** | `Duyệt` | Quyền chuyển chứng từ vào sổ sách chính thức hoặc bỏ ghi sổ để sửa |
+| **Toàn quyền (Admin)** | `Admin` | Toàn quyền kiểm soát, cấu hình và phân quyền cho người dùng khác |
 
-![Ma trận mặt nạ phân quyền](/images/general-guide-authorization-role-mask-matrix.png)
-<p class="img-caption">Hình 1.6: Mô hình ma trận phân quyền theo cơ chế mặt nạ Bitwise</p>
+![Mô hình ma trận phân quyền chi tiết](/images/general-guide-authorization-role-mask-matrix.png)
+<p class="img-caption">Hình 1.6: Mô hình ma trận phân quyền theo từng vai trò nghiệp vụ</p>
 
-::: tip Công thức tính quyền tổng hợp
-Quyền tổng hợp của một người dùng là **phép cộng (hoặc phép OR bitwise)** của các quyền được cấp:
-* *Ví dụ 1:* Nhân viên xem (1) + in (16) $\rightarrow$ `RoleMask = 1 + 16 = 17`.
-* *Ví dụ 2:* Kế toán viên có quyền Xem (1) + Thêm (2) + Sửa (4) + In (16) $\rightarrow$ `RoleMask = 1 + 2 + 4 + 16 = 23`.
-:::
-
-::: warning Cơ chế kiểm tra an toàn trong mã nguồn
-Trong phần mềm, hàm kiểm tra quyền trên thanh Ribbon và nút bấm luôn dùng phép toán `AND` nhị phân:
-```csharp
-// Kiểm tra người dùng có quyền SỬA (Flag = 4) hay không:
-bool canEdit = (userRoleMask & 4) == 4;
-
-// Kiểm tra quyền XÓA (Flag = 8):
-bool canDelete = (userRoleMask & 8) == 8;
-```
-Nếu phép tính trả về khác 0, chức năng tương ứng mới được bật sáng (Enable) trên giao diện.
+::: tip Nguyên tắc an toàn dữ liệu kế toán
+* **Kiểm soát nút bấm tự động:** Khi người dùng không được cấp một quyền cụ thể (ví dụ không có quyền Sửa), nút bấm tương ứng trên thanh Ribbon hoặc thanh tác nghiệp sẽ tự động mờ đi (Disable), ngăn ngừa hoàn toàn thao tác ngoài thẩm quyền.
+* **Tách biệt quyền Xem và In:** Nhân viên có thể được cấp quyền xem dữ liệu trên màn hình để kiểm tra nhưng không được quyền in ấn hoặc kết xuất báo cáo ra bên ngoài để bảo mật thông tin tài chính của doanh nghiệp.
 :::
 
 ---
@@ -78,7 +65,7 @@ Nếu phép tính trả về khác 0, chức năng tương ứng mới được 
 5. Nhấn nút **"Lưu Thiết Lập"** (`Ctrl + S`) để cập nhật vào hệ quản trị cơ sở dữ liệu.
 
 ::: danger Cảnh báo bảo mật tài khoản Admin
-Tài khoản có quyền Quản trị cao nhất (`RoleMask = 255`) có thể xóa hoặc sửa quyền của mọi tài khoản khác. Vui lòng đặt mật khẩu phức tạp và không chia sẻ tài khoản này cho nhân sự không có thẩm quyền.
+Tài khoản Quản trị cao nhất (`admin`) có thể xóa hoặc sửa quyền của mọi tài khoản khác. Vui lòng đặt mật khẩu phức tạp và không chia sẻ tài khoản này cho nhân sự không có thẩm quyền.
 :::
 
 ---
@@ -86,9 +73,9 @@ Tài khoản có quyền Quản trị cao nhất (`RoleMask = 255`) có thể x�
 ## 4. Xử Lý Sự Cố Thường Gặp (Troubleshooting)
 
 ### Trường hợp 1: Người dùng bị mờ nút "Thêm mới" hoặc "Lưu"
-* **Nguyên nhân:** Tài khoản chỉ được cấp cờ Xem (`RoleMask = 1`), thiếu cờ Thêm (`+2`) hoặc cờ Sửa (`+4`).
-* **Khắc phục:** Quản trị viên vào lại form Phân quyền, tích bổ sung ô **Thêm** / **Sửa** và yêu cầu người dùng đăng xuất đăng nhập lại.
+* **Nguyên nhân:** Tài khoản chỉ được cấp quyền Xem, chưa được cấp quyền Thêm hoặc Sửa.
+* **Khắc phục:** Quản trị viên vào lại màn hình Phân quyền, tích bổ sung ô **Thêm mới** / **Sửa** và yêu cầu người dùng đăng xuất đăng nhập lại.
 
 ### Trường hợp 2: Không xóa được chứng từ dù đã có quyền
-* **Nguyên nhân:** Chứng từ đã được chuyển vào trạng thái **"Đã ghi sổ"** (`Bookflag = True`) hoặc kỳ kế toán đã bị **Khóa sổ**.
+* **Nguyên nhân:** Chứng từ đã được chuyển vào trạng thái **"Đã ghi sổ"** hoặc kỳ kế toán đã được **Khóa sổ**.
 * **Khắc phục:** Phải thực hiện thao tác **"Bỏ ghi sổ"** trước khi xóa.

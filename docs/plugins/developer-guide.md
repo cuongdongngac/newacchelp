@@ -1,113 +1,56 @@
 ---
-title: "Cẩm nang Lập trình viên phát triển Plugin"
-description: "Đặc tả kỹ thuật dành cho lập trình viên: Cách tạo project Class Library độc lập, chỉ tham chiếu SDK và xuất ra đúng 1 file DLL duy nhất"
+title: "Từ Kế Toán Lên ERP"
+description: "Cách hệ thống tiện ích mở rộng chuyển hóa NewaccNet từ phần mềm kế toán sang hệ thống quản trị nguồn lực doanh nghiệp (ERP) toàn diện"
 outline: deep
 ---
 
-# Cẩm Nang Lập Trình Viên Phát Triển Plugin
+# Từ Kế Toán Vươn Lên ERP: Chuyển Dịch Dòng Chảy Doanh Nghiệp
 
-Tài liệu này dành cho lập trình viên bên ngoài được giao nhiệm vụ viết thêm tính năng, vỏ nhập liệu hoặc báo cáo chuyên ngành cho **NewaccNet ERP**.
-
----
-
-## 1. Nguyên Tắc Cốt Lõi: Đóng Gói 1-DLL Duy Nhất
-
-* **Zero-bloat:** Plugin chỉ tham chiếu SDK biên dịch (`NewaccNet.Contracts.dll`, `NewaccNet.Core.dll`, `DataAccess.dll`).
-* **Không phân phối kèm thư viện thứ 3:** Không copy lại DevExpress hay ORM DLLs. Runtime sẽ do Host (`NewaccNet.Wpf`) nạp sẵn.
+Khi doanh nghiệp phát triển từ quy mô nhỏ lên quy mô vừa và lớn, khối lượng giao dịch phát sinh hàng ngày sẽ vượt qua khả năng xử lý của một hoặc vài kế toán viên. Đây chính là thời điểm **NewaccNet chuyển dịch từ mô hình Kế toán thuần túy (Accounting-First) sang Hệ thống Quản trị nguồn lực doanh nghiệp (ERP-First)** thông qua các Tiện ích mở rộng.
 
 ---
 
-## 2. File Cấu Hình Dự Án Chuẩn (`.csproj`)
+## 1. Khi Hệ Thống Không Còn Đơn Thuần Là "Kế Toán"
 
-```xml
-<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>net10.0-windows</TargetFramework>
-    <UseWPF>true</UseWPF>
-    <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
-  </PropertyGroup>
+Trong cách làm việc truyền thống:
+* Giấy tờ, biên bản giao nhận, phiếu bán lẻ, đơn đặt hàng từ các phòng ban bên ngoài đều dồn về bàn làm việc của phòng kế toán.
+* Kế toán viên phải ngồi gõ lại toàn bộ các thông tin đó vào phần mềm kế toán.
 
-  <ItemGroup>
-    <!-- Chỉ tham chiếu SDK (Private = false để không copy đè DLL) -->
-    <Reference Include="NewaccNet.Contracts">
-      <HintPath>..\SDK\NewaccNet.Contracts.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="NewaccNet.Core">
-      <HintPath>..\SDK\NewaccNet.Core.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="DataAccess">
-      <HintPath>..\SDK\DataAccess.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-  </ItemGroup>
+Khi gắn thêm các Tiện ích mở rộng chuyên ngành, **hệ thống này không còn gọi là phần mềm kế toán nữa**, mà trở thành một **trung tâm điều hành thông tin xuyên suốt toàn công ty**:
+* **Bộ phận Kinh doanh / Bán hàng:** Thao tác trên màn hình Báo giá, Đơn đặt hàng, Hợp đồng kinh tế.
+* **Bộ phận Kho vận:** Sử dụng màn hình Nhập - Xuất - Kiểm kê kho, đối soát thẻ kho theo thời gian thực.
+* **Bộ phận Sản xuất:** Nhập lệnh sản xuất, theo dõi định mức tiêu hao nguyên vật liệu và tiến độ theo công đoạn.
+* **Bộ phận Nhân sự - Tiền lương:** Chấm công, theo dõi KPI, tính lương và các khoản trích theo lương.
 
-  <ItemGroup>
-    <!-- DevExpress chỉ dùng lúc biên dịch -->
-    <PackageReference Include="DevExpress.Wpf.Core" Version="25.2.3" ExcludeAssets="runtime" />
-    <PackageReference Include="DevExpress.Wpf.Grid" Version="25.2.3" ExcludeAssets="runtime" />
-    <PackageReference Include="DevExpress.Reporting.Core" Version="25.2.3" ExcludeAssets="runtime" />
-    <PackageReference Include="DevExpress.Wpf.Printing" Version="25.2.3" ExcludeAssets="runtime" />
-  </ItemGroup>
-</Project>
-```
+Mỗi nhân sự chỉ nhìn thấy và thao tác đúng giao diện thuộc phạm vi trách nhiệm của mình. Mọi thao tác đều được số hóa ngay tại thời điểm nghiệp vụ phát sinh.
 
 ---
 
-## 3. Cài Đặt Interface `IPlugin`
+## 2. Vai Trò Mới Của Người Làm Kế Toán
 
-```csharp
-using NewaccNet.Contracts;
-using NewaccNet.Core.Data;
-using System.Windows;
+Khi doanh nghiệp đã vận hành theo mô hình ERP:
 
-namespace MyCustomPlugin
-{
-    public class SamplePlugin : IPlugin
-    {
-        public string Id => "plugin.my_custom";
-        public string Name => "Phân Hệ Nghiệp Vụ Riêng";
-        public string Version => "1.0.0";
-        public string Description => "Mô tả tính năng nghiệp vụ mở rộng.";
-        public string Author => "Dev Team";
+### 1. Kế toán trong vai trò nhập liệu một mảng chuyên trách
+* Trong các doanh nghiệp lớn, công việc kế toán được phân công chuyên môn hóa: Kế toán thanh toán, Kế toán công nợ mua hàng, Kế toán công nợ bán hàng, Kế toán kho, Kế toán tài sản...
+* Mỗi nhân viên kế toán chỉ cần tập trung làm thật tốt mảng nghiệp vụ của mình trên các phân hệ chức năng tương ứng, không bị phân tán bởi các phần hành khác.
 
-        public void Initialize(IPluginContext context)
-        {
-            // Đăng ký nút bấm lên Ribbon của Host
-            context.RegisterRibbonAction(new PluginRibbonAction
-            {
-                Category = "Tiện Ích Mở Rộng",
-                GroupName = "Nghiệp Vụ",
-                Title = "Mở Cửa Sổ Mới",
-                ExecuteAction = owner =>
-                {
-                    var win = new MyCustomWindow { Owner = owner as Window };
-                    win.ShowDialog();
-                }
-            });
-        }
-
-        public void Shutdown() { }
-    }
-}
-```
+### 2. Kế toán trưởng / Kế toán tổng hợp: Người kiểm soát và Chốt sổ
+* **Không còn áp lực nhập liệu:** Kế toán trưởng không còn phải thức đêm để gõ chứng từ giấy tờ của các bộ phận khác.
+* **Kiểm soát chất lượng và tính hợp lệ:** Đóng vai trò là "người thẩm định", kiểm tra hóa đơn điện tử hợp pháp, kiểm soát hạn mức tín dụng công nợ và giám sát dòng tiền.
+* **Thao tác Chốt sổ kỳ kế toán:** Khi các phòng ban đã hoàn thành việc ghi nhận chứng từ trong tháng/quý:
+  * Kế toán thực hiện việc rà soát và đối chiếu số liệu.
+  * Kích hoạt các công cụ tự động: Tính giá vốn bình quân gia quyền, phân bổ khấu hao TSCĐ, phân bổ chi phí trả trước.
+  * Chạy các bút toán kết chuyển tự động để xác định kết quả kinh doanh.
+  * Thực hiện **Khóa sổ kỳ kế toán** để bảo vệ số liệu báo cáo tài chính không bị xáo trộn.
 
 ---
 
-## 4. Truy Cập Cơ Sở Dữ Liệu Đa Nền Tảng
+## 3. Lợi Ích Của Mô Hình Phân Tán So Với Nhập Đa Năng
 
-Plugin sử dụng trực tiếp adapter dùng chung từ `NewaccNet.Core`:
-
-```csharp
-using SD.LLBLGen.Pro.ORMSupportClasses;
-using NewaccNet.Core.Data;
-using DataAccess.Linq;
-
-using (var adapter = (IDataAccessAdapter)AppDataAccessAdapter.Create())
-{
-    var meta = new LinqMetaData(adapter);
-    var accounts = meta.ChartOfAccount.ToList();
-}
-```
-Khách hàng đang dùng CSDL nào (SQL Server, Postgres hay Access), `AppDataAccessAdapter.Create()` sẽ tự động kết nối tương ứng mà lập trình viên không cần bận tâm chuỗi kết nối.
+| Đặc điểm so sánh | Nhập đa năng (Accounting-First) | Nhập phân tán theo phân hệ (ERP-First) |
+| :--- | :--- | :--- |
+| **Đối tượng nhập liệu** | Kế toán viên chuyên nghiệp | Từng bộ phận tác nghiệp (Bán hàng, Kho, Kế toán phần hành) |
+| **Yêu cầu kiến thức hạch toán** | Bắt buộc phải hiểu rõ TK Nợ / TK Có | Không cần biết hạch toán Nợ/Có, hệ thống tự động sinh bút toán ngầm |
+| **Tốc độ ghi nhận dữ liệu** | Có độ trễ (chờ chứng từ gửi về phòng kế toán) | Thời gian thực (ghi nhận ngay khi hàng rời kho hoặc giao khách) |
+| **Khả năng mở rộng quy mô** | Phù hợp doanh nghiệp dưới 2.000 chứng từ/tháng | Đáp ứng hàng chục nghìn đến hàng triệu giao dịch mỗi năm |
+| **Trách nhiệm của Kế toán** | Làm hết từ đầu đến cuối | Giám sát dữ liệu, phân tích tài chính và chốt sổ |
