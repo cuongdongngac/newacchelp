@@ -68,6 +68,9 @@ Khi khởi chạy phần mềm lần đầu tiên, hệ thống sẽ mở cửa 
 > [!TIP] Tận dụng tệp JSON mẫu trong thư mục `template\` làm dữ liệu mồi
 > Trong quá trình sử dụng các phân hệ (Kho ERP, Nghiệp vụ Tiền...), bạn có thể bấm **"Nạp tệp JSON"** và trỏ vào thư mục **`template\`** để nạp nhanh toàn bộ bảng mối tài khoản chuẩn làm **dữ liệu mồi ban đầu** hoặc dùng cho mục đích chạy thử nghiệm (test), giúp tiết kiệm tối đa thời gian cấu hình.
 
+![Thư mục Template chứa tệp cấu hình JSON mồi ban đầu](/images/Cash/2026-11/explorer_vWoAN1lHlg.png)
+<p class="img-caption">Hình 1.3: Thư mục Template lưu trữ các tệp JSON mồi cấu hình và bản thiết kế BCTC</p>
+
 ### Lựa chọn B: Muốn dùng dữ liệu cũ $\rightarrow$ Chạy công cụ Chuyển Đổi Dữ Liệu (`migrate.exe`)
 Nếu doanh nghiệp của bạn đã có dữ liệu từ các phần mềm kế toán Newacc thế hệ trước (FoxPro, Access cũ...):
 1. Đóng phần mềm chính, mở thư mục cài đặt và chạy tệp **`migrate.exe`** (Chuyển đổi dữ liệu).
@@ -77,7 +80,7 @@ Nếu doanh nghiệp của bạn đã có dữ liệu từ các phần mềm k�
 3. Nhấn **"Bắt đầu chuyển đổi"**: Công cụ sẽ tự động rà soát, đồng bộ danh mục tài khoản, danh mục đối tác, danh mục vật tư hàng hóa, số dư đầu kỳ và toàn bộ chứng từ lịch sử sang cấu trúc CSDL NewaccNet ERP hoàn toàn tự động.
 
 ![Giao diện công cụ Chuyển đổi dữ liệu migrate.exe](/images/Cash/2026-11/NewaccNet.Wpf_N2Gkq9GfYD.png)
-<p class="img-caption">Hình 1.3: Giao diện công cụ Chuyển đổi dữ liệu migrate.exe sang NewaccNet ERP</p>
+<p class="img-caption">Hình 1.4: Giao diện công cụ Chuyển đổi dữ liệu migrate.exe sang NewaccNet ERP</p>
 
 ---
 
