@@ -30,8 +30,15 @@ Khi khởi động lần đầu hoặc khi cần đổi CSDL:
 <p class="img-caption">Hình 1.3: Giao diện trung tâm Cấu hình Cơ sở dữ liệu NewaccNet ERP</p>
 
 ### Lựa chọn 1: Dùng Microsoft Access (Máy đơn)
-* Nhấn nút **"Chọn tệp"** và trỏ đến tệp dữ liệu kế toán (ví dụ: `D:\NewaccNet\Data\Newacc2026.accdb`).
+* Nhấn nút **"Chọn tệp"** và trỏ đến tệp dữ liệu kế toán:
+  * **Sử dụng CSDL mẫu:** Trỏ vào thư mục **`sampledb\`** (ví dụ: `sampledb\DL2023M.accdb`) để bắt đầu làm việc ngay với CSDL mẫu chuẩn.
+  * **Hoặc chuyển đổi từ dữ liệu cũ:** Dùng công cụ **`migrate.exe`** để chuyển đổi số liệu từ phiên bản cũ sang file `.accdb` mới rồi trỏ tới tệp này.
 * Nhấn **"Kiểm tra kết nối"** $\rightarrow$ Bấm **"Lưu"**.
+
+> [!NOTE] Thông tin đăng nhập mặc định
+> Khi đăng nhập lần đầu tiên vào hệ thống:
+> - **User:** `admin`
+> - **Password:** `newacc`
 
 ### Lựa chọn 2: Dùng Microsoft SQL Server (Mạng nội bộ)
 * **Tên máy chủ (Server Name):** Nhập tên máy chủ hoặc địa chỉ IP máy chủ nội bộ (ví dụ: `.\SQLEXPRESS` hoặc `192.168.1.100`).

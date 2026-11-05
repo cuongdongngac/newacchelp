@@ -78,6 +78,8 @@ export default defineConfig({
         collapsed: false,
         items: [
           { text: 'Khái niệm & Quản lý Plugin', link: '/plugins/plugin-management' },
+          { text: 'Phân hệ Kho ERP & Bán hàng (ErpWarehouse)', link: '/plugins/erp-warehouse' },
+          { text: 'Phân hệ Tiền mặt & Ngân hàng (CashBank)', link: '/plugins/cash-bank' },
           { text: 'Từ Kế toán vươn lên ERP', link: '/plugins/developer-guide' }
         ]
       }
