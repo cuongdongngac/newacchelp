@@ -1,4 +1,4 @@
-import { defineConfig } from 'vitepress'
+﻿import { defineConfig } from 'vitepress'
 
 export default defineConfig({
   lang: 'vi-VN',
@@ -33,6 +33,7 @@ export default defineConfig({
           { text: 'Triết lý phần mềm: Từ Kế toán đến ERP', link: '/general-guide/philosophy' },
           { text: 'Cài đặt & Yêu cầu hệ thống', link: '/general-guide/installation' },
           { text: 'Cấu hình Cơ sở dữ liệu', link: '/general-guide/database-config' },
+          { text: 'Cấu hình Trí tuệ Nhân tạo (OpenRouter AI)', link: '/general-guide/ai-config' },
           { text: 'Đăng ký & Bản quyền theo bản ghi', link: '/general-guide/licensing' },
           { text: 'Quản lý phân quyền người dùng', link: '/general-guide/authorization' }
         ]
